@@ -12,7 +12,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 -- Application Export:
 --   Application:     102
 --   Name:            Lovas_Tábor
---   Date and Time:   22:34 Monday October 7, 2013
+--   Date and Time:   13:06 Sunday October 13, 2013
 --   Exported By:     MAGYAR
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -26,9 +26,10 @@ prompt  APPLICATION 102 - Lovas_Tábor
  
 -- Application Statistics:
 --   Pages:                      3
---     Items:                    4
+--     Items:                    7
 --     Processes:                4
---     Regions:                  4
+--     Regions:                  5
+--     Buttons:                  1
 --   Shared Components:
 --     Logic:
 --     Navigation:
@@ -151,7 +152,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20131007221401',
+  p_checksum_salt_last_reset => '20131013130256',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -188,7 +189,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'MAGYAR',
-  p_last_upd_yyyymmddhh24miss=> '20131007221401',
+  p_last_upd_yyyymmddhh24miss=> '20131013130256',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -474,7 +475,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131007221401'
+ ,p_last_upd_yyyymmddhh24miss => '20131013130256'
   );
 null;
  
@@ -504,6 +505,7 @@ wwv_flow_api.create_page_plug (
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'QUERY_COLUMNS',
   p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
@@ -511,6 +513,7 @@ wwv_flow_api.create_page_plug (
   p_plug_query_show_nulls_as => ' - ',
   p_plug_display_condition_type => '',
   p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -534,7 +537,7 @@ wwv_flow_api.create_page_plug (
   p_id=> 2332609251562853 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 2,
-  p_plug_name=> 'nyanya',
+  p_plug_name=> 'Elévült: Oszlop választó',
   p_region_name=>'',
   p_escape_on_http_output=>'Y',
   p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
@@ -555,6 +558,8 @@ wwv_flow_api.create_page_plug (
   p_plug_query_show_nulls_as => ' - ',
   p_plug_display_condition_type => 'FUNCTION_BODY',
   p_plug_display_when_condition => 'BEGIN'||unistr('\000a')||
+'--elévült'||unistr('\000a')||
+'return false;'||unistr('\000a')||
 'if :P2_TV = ''0'' THEN'||unistr('\000a')||
 'return false;'||unistr('\000a')||
 'ELSE'||unistr('\000a')||
@@ -567,10 +572,65 @@ wwv_flow_api.create_page_plug (
   p_plug_comment=> '');
 end;
 /
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'htp.p(''P2_TV: ''||:P2_TV||''<br />'');'||unistr('\000a')||
+'htp.p(''P2_CHK_OSZLOPOK: ''||:P2_CHK_OSZLOPOK||''<br />'');'||unistr('\000a')||
+'htp.p(''P2_RDO_SORT: ''|| :P2_RDO_SORT ||''<br />'');'||unistr('\000a')||
+'htp.p(''P2_TB_SORT_FIELD: ''|| :P2_TB_SORT_FIELD ||''<br />'');';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 2354218302625104 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Teszt',
+  p_region_name=>'',
+  p_escape_on_http_output=>'Y',
+  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 30,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'BODY_3',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'PLSQL_PROCEDURE',
+  p_translate_title=> 'Y',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
  
 begin
  
-null;
+wwv_flow_api.create_page_button(
+  p_id             => 2353817516568106 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 2,
+  p_button_sequence=> 10,
+  p_button_plug_id => 2320816810333200+wwv_flow_api.g_id_offset,
+  p_button_name    => 'P2_BTN_MEHET',
+  p_button_action  => 'SUBMIT',
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Lekérdez',
+  p_button_position=> 'BOTTOM',
+  p_button_alignment=> 'LEFT',
+  p_button_redirect_url=> '',
+  p_button_execute_validations=>'Y',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
  
 end;
 /
@@ -601,7 +661,7 @@ wwv_flow_api.create_page_item(
   p_prompt=>'Táblaválasztó',
   p_source_type=> 'STATIC',
   p_display_as=> 'NATIVE_SELECT_LIST',
-  p_lov=> 'SELECT table_name as name, table_name as value FROM user_tables;',
+  p_lov=> 'select distinct table_name, table_name as "a" from all_tab_columns where owner = ''SEMA1'' and table_name not like ''APEX%'' AND table_name not like ''DEMO%'';',
   p_lov_display_null=> 'YES',
   p_lov_translated=> 'N',
   p_lov_null_text=>'-- Válasszon táblát --',
@@ -624,6 +684,173 @@ wwv_flow_api.create_page_item(
   p_escape_on_http_output => 'Y',
   p_attribute_01 => 'SUBMIT',
   p_attribute_03 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2346424632191996 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 2,
+  p_name=>'P2_CHK_OSZLOPOK',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 20,
+  p_item_plug_id => 2320816810333200+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Oszlopok',
+  p_source_type=> 'ALWAYS_NULL',
+  p_display_as=> 'NATIVE_CHECKBOX',
+  p_lov=> 'select column_name as val, column_name from all_tab_columns where owner = ''SEMA1'' AND table_name = :P2_TV',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>'BEGIN'||unistr('\000a')||
+'if :P2_TV = ''0'''||unistr('\000a')||
+'THEN return false;'||unistr('\000a')||
+'else'||unistr('\000a')||
+'return true;'||unistr('\000a')||
+'end if;'||unistr('\000a')||
+'END;',
+  p_display_when_type=>'FUNCTION_BODY',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'NO',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => '1',
+  p_attribute_02 => 'HORIZONTAL',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2352217608347184 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 2,
+  p_name=>'P2_RDO_SORT',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 30,
+  p_item_plug_id => 2320816810333200+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Rendezés',
+  p_source_type=> 'ALWAYS_NULL',
+  p_display_as=> 'NATIVE_RADIOGROUP',
+  p_lov=> 'STATIC:NO,ASC,DESC',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>'BEGIN'||unistr('\000a')||
+'if :P2_CHK_OSZLOPOK = '''' then'||unistr('\000a')||
+'return false;'||unistr('\000a')||
+'else'||unistr('\000a')||
+'return true;'||unistr('\000a')||
+'end if;'||unistr('\000a')||
+'END;',
+  p_display_when_type=>'FUNCTION_BODY',
+  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => '1',
+  p_attribute_02 => 'SUBMIT',
+  p_attribute_03 => 'Y',
+  p_attribute_04 => 'HORIZONTAL',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2352519512391860 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 2,
+  p_name=>'P2_TB_SORT_FIELD',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 40,
+  p_item_plug_id => 2320816810333200+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Rendező Oszlop',
+  p_source_type=> 'ALWAYS_NULL',
+  p_display_as=> 'NATIVE_AUTO_COMPLETE',
+  p_lov=> 'select column_name from all_tab_columns where owner = ''SEMA1'' AND table_name = :P2_TV',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 80,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 5,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>'BEGIN'||unistr('\000a')||
+'if :P2_RDO_SORT = ''NO'' then'||unistr('\000a')||
+'return false;'||unistr('\000a')||
+'else'||unistr('\000a')||
+'return true;'||unistr('\000a')||
+'end if;'||unistr('\000a')||
+'END;',
+  p_display_when_type=>'FUNCTION_BODY',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'CONTAINS_IGNORE',
+  p_attribute_04 => 'N',
+  p_attribute_06 => 'N',
+  p_attribute_07 => 'Y',
+  p_attribute_08 => 'Y',
   p_show_quick_picks=>'N',
   p_item_comment => '');
  
