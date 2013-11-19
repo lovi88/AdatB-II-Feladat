@@ -12,7 +12,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 -- Application Export:
 --   Application:     102
 --   Name:            Lovas_Tábor
---   Date and Time:   01:54 Tuesday November 19, 2013
+--   Date and Time:   23:17 Tuesday November 19, 2013
 --   Exported By:     MAGYAR
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -154,7 +154,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20131119015323',
+  p_checksum_salt_last_reset => '20131119231254',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -191,7 +191,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'MAGYAR',
-  p_last_upd_yyyymmddhh24miss=> '20131119015323',
+  p_last_upd_yyyymmddhh24miss=> '20131119231254',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -2793,7 +2793,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131102170648'
+ ,p_last_upd_yyyymmddhh24miss => '20131119230159'
   );
 null;
  
@@ -4874,11 +4874,16 @@ wwv_flow_api.create_page_item(
   p_grid_column=> null,
   p_label_alignment=> 'RIGHT',
   p_field_alignment=> 'LEFT-CENTER',
+  p_display_when_type=>'NEVER',
   p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
   p_attribute_01 => 'N',
   p_attribute_02 => 'N',
   p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
   p_item_comment => '');
  
  
@@ -4896,7 +4901,7 @@ begin
 p:=p||'BEGIN'||unistr('\000a')||
 '   :P3_TEXTA_SQL := '''';'||unistr('\000a')||
 '   :P3_HDN_STATE := '''';'||unistr('\000a')||
-'   :P3_TXT_STATE := ''Utasítás Törölve'';'||unistr('\000a')||
+'   :P3_TXTA_STATE := ''Utasítás Törölve'';'||unistr('\000a')||
 ':P3_TXT_TEST:=''clear'';'||unistr('\000a')||
 'END;';
 
@@ -4912,8 +4917,6 @@ wwv_flow_api.create_page_process(
   p_process_error_message=> 'Hiba (CLEAR)',
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
   p_process_when_button_id=>2508109831089310 + wwv_flow_api.g_id_offset,
-  p_process_when=>'',
-  p_process_when_type=>'NEVER',
   p_only_for_changed_rows=> 'Y',
   p_process_success_message=> '',
   p_process_is_stateful_y_n=>'N',
@@ -9105,7 +9108,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131119015323'
+ ,p_last_upd_yyyymmddhh24miss => '20131119231254'
   );
 null;
  
@@ -9351,7 +9354,7 @@ wwv_flow_api.create_report_columns (
   p_query_column_id=> 7,
   p_form_element_id=> null,
   p_column_alias=> 'SZEMÉLYIGAZOLVÁNY_SZÁM',
-  p_column_display_sequence=> 8,
+  p_column_display_sequence=> 7,
   p_column_heading=> 'Személyigazolvány Szám',
   p_column_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
@@ -9378,7 +9381,7 @@ wwv_flow_api.create_report_columns (
   p_query_column_id=> 8,
   p_form_element_id=> null,
   p_column_alias=> 'TARTÓZKODAS_TÓL',
-  p_column_display_sequence=> 7,
+  p_column_display_sequence=> 8,
   p_column_heading=> 'Tartózkodas Tól',
   p_column_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
@@ -9635,6 +9638,7 @@ wwv_flow_api.create_page_item(
   p_grid_column=> null,
   p_label_alignment=> 'RIGHT',
   p_field_alignment=> 'LEFT-CENTER',
+  p_display_when_type=>'NEVER',
   p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
   p_lov_display_extra=>'YES',
@@ -9737,6 +9741,7 @@ wwv_flow_api.create_page_validation(
   p_validation => 'TARTÓZKODAS_TÓL',
   p_validation_type => 'ITEM_IS_DATE',
   p_error_message => '#COLUMN_HEADER# must be a valid date.',
+  p_always_execute=>'N',
   p_when_button_pressed=> 3027200954340925 + wwv_flow_api.g_id_offset,
   p_exec_cond_for_each_row=> 'N',
   p_only_for_changed_rows=> 'Y',
@@ -9875,26 +9880,93 @@ declare
   l_length number := 1;
 begin
 p:=p||'Declare'||unistr('\000a')||
-'str Varchar(1500);'||unistr('\000a')||
 'csap_n Varchar(500);'||unistr('\000a')||
 'csap_v Varchar(500);'||unistr('\000a')||
+'idx NUMBER(4);'||unistr('\000a')||
+'len NUMBER(4);'||unistr('\000a')||
 ''||unistr('\000a')||
 'BEGIN'||unistr('\000a')||
 ''||unistr('\000a')||
-'str := '''';'||unistr('\000a')||
-':P14_X := '''';'||unistr('\000a')||
 'csap_n := '''';'||unistr('\000a')||
 'csap_v := '''';'||unistr('\000a')||
 ''||unistr('\000a')||
-'for i in 1..apex_application.g_f02.count loop'||unistr('\000a')||
 ''||unistr('\000a')||
-'   str := str || ''<h2>''|| i ||''</h2>'';'||unistr('\000a')||
-'   str := str || apex_application.g_f11(i) || ''<br>'';'||unistr('\000a')||
-'   csap_n := instr(apex_application.g_f11(i),''-'') || apex_application.g_f11(i);'||unistr('\000a')||
+''||unistr('\000a')||
+'for i in 1..apex_application.g_f02.count loop'||unistr('\000a')||
+'    --Coportnév - Csopotrvezető'||unistr('\000a')||
+'    csap_n := '''';'||unistr('\000a')||
+'    csap_v := '''';'||unistr('\000a')||
+''||unistr('\000a')||
+''||unistr('\000a')||
+'    idx := instr(apex_application.g_f11(i),''-'');'||unistr('\000a')||
+'    csap_n := SUBSTR(apex_application.g_f11(i),1,idx-2);'||unistr('\000a')||
+''||unistr('\000a')||
+'    '||unistr('\000a')||
+'    len := length(apex_application.g_f11(i));'||unistr('\000a')||
+'    len';
+
+p:=p||' := len - (idx+1);'||unistr('\000a')||
+'    csap_v := SUBSTR(apex_application.g_f11(i),idx+2,len);'||unistr('\000a')||
+''||unistr('\000a')||
+''||unistr('\000a')||
+'    if apex_application.g_frowid(i) is not null then'||unistr('\000a')||
+'        --Update'||unistr('\000a')||
+'        UPDATE Lakók'||unistr('\000a')||
+'        set'||unistr('\000a')||
+'        NÉV = apex_application.g_f02(i),'||unistr('\000a')||
+'        EGÉSZSÉGBIZTOSÍTÁSI_SZÁM = apex_application.g_f03(i),'||unistr('\000a')||
+'        SZÜLETÉSIDÁTUM = TO_DATE(apex_application.g_f04(i),''YYYY-MM-DD''),'||unistr('\000a')||
+'        NEM = apex_application.g_f05(i),';
+
+p:=p||''||unistr('\000a')||
+'        SZEMÉLYIGAZOLVÁNY_SZÁM = apex_application.g_f06(i),'||unistr('\000a')||
+'        TARTÓZKODAS_TÓL = TO_DATE(apex_application.g_f07(i),''YYYY-MM-DD''),'||unistr('\000a')||
+'        TARTÓZKODAS_IG = TO_DATE(apex_application.g_f08(i),''YYYY-MM-DD''),'||unistr('\000a')||
+'        ORSZÁG = apex_application.g_f09(i),'||unistr('\000a')||
+'        HÁZ_SZÁM = apex_application.g_f10(i),'||unistr('\000a')||
+'        CSOPORT_NÉV = csap_n,'||unistr('\000a')||
+'        CSOPORTVEZETŐ = csap_v'||unistr('\000a')||
+'        WHERE rowid = apex_application.';
+
+p:=p||'g_frowid(i);'||unistr('\000a')||
+'    else'||unistr('\000a')||
+'        --insert'||unistr('\000a')||
+'        INSERT INTO Lakók'||unistr('\000a')||
+'        ('||unistr('\000a')||
+'		Név,'||unistr('\000a')||
+'		Egészségbiztosítási_szám,'||unistr('\000a')||
+'		SzületésiDátum,'||unistr('\000a')||
+'		Nem,'||unistr('\000a')||
+'		Személyigazolvány_szám,'||unistr('\000a')||
+'		Tartózkodas_tól,'||unistr('\000a')||
+'		Tartózkodas_ig,'||unistr('\000a')||
+'		Ország,'||unistr('\000a')||
+'		ház_szám,'||unistr('\000a')||
+'		Csoport_név,'||unistr('\000a')||
+'		Csoportvezető'||unistr('\000a')||
+'	)'||unistr('\000a')||
+'        VALUES'||unistr('\000a')||
+'	('||unistr('\000a')||
+'		apex_application.g_f02(i),'||unistr('\000a')||
+'		apex_application.g_f03(i),'||unistr('\000a')||
+'		TO_DATE(apex_application.g_f04(i),''YYYY-MM-DD''),'||unistr('\000a')||
+'		apex_application.';
+
+p:=p||'g_f05(i),'||unistr('\000a')||
+'		apex_application.g_f06(i),'||unistr('\000a')||
+'		TO_DATE(apex_application.g_f07(i),''YYYY-MM-DD''),'||unistr('\000a')||
+'		TO_DATE(apex_application.g_f08(i),''YYYY-MM-DD''),'||unistr('\000a')||
+'		apex_application.g_f09(i),'||unistr('\000a')||
+'		apex_application.g_f10(i),'||unistr('\000a')||
+'		csap_n,'||unistr('\000a')||
+'		csap_v'||unistr('\000a')||
+'	)'||unistr('\000a')||
+'        ;'||unistr('\000a')||
+'        '||unistr('\000a')||
+'    end if;'||unistr('\000a')||
+''||unistr('\000a')||
 ''||unistr('\000a')||
 'end loop;'||unistr('\000a')||
-''||unistr('\000a')||
-':P14_X := str;'||unistr('\000a')||
 ''||unistr('\000a')||
 'END;';
 
@@ -9905,10 +9977,11 @@ wwv_flow_api.create_page_process(
   p_process_sequence=> 30,
   p_process_point=> 'AFTER_SUBMIT',
   p_process_type=> 'PLSQL',
-  p_process_name=> 'MyMul',
+  p_process_name=> 'MyMru',
   p_process_sql_clob => p,
   p_process_error_message=> '',
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>3027200954340925 + wwv_flow_api.g_id_offset,
   p_process_success_message=> '',
   p_process_is_stateful_y_n=>'N',
   p_process_comment=>'');
