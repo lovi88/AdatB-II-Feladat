@@ -12,7 +12,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 -- Application Export:
 --   Application:     102
 --   Name:            Lovas_Tábor
---   Date and Time:   23:17 Tuesday November 19, 2013
+--   Date and Time:   23:13 Wednesday November 20, 2013
 --   Exported By:     MAGYAR
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -26,9 +26,9 @@ prompt  APPLICATION 102 - Lovas_Tábor
  
 -- Application Statistics:
 --   Pages:                     14
---     Items:                   44
+--     Items:                   46
 --     Validations:              8
---     Processes:               19
+--     Processes:               20
 --     Regions:                 22
 --     Buttons:                 20
 --   Shared Components:
@@ -154,7 +154,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20131119231254',
+  p_checksum_salt_last_reset => '20131120221451',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -191,7 +191,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'MAGYAR',
-  p_last_upd_yyyymmddhh24miss=> '20131119231254',
+  p_last_upd_yyyymmddhh24miss=> '20131120221451',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -310,7 +310,7 @@ wwv_flow_api.create_tab (
   p_tab_set=> 'TS1',
   p_tab_sequence=> 10,
   p_tab_name=> 'T_HOME',
-  p_tab_text => 'Home',
+  p_tab_text => 'Kezdőlap',
   p_tab_step => 1,
   p_tab_also_current_for_pages => '',
   p_tab_parent_tabset=>'',
@@ -400,16 +400,22 @@ wwv_flow_api.create_page (
  ,p_user_interface_id => 2314329887365668 + wwv_flow_api.g_id_offset
  ,p_tab_set => 'TS1'
  ,p_name => 'Home'
- ,p_step_title => 'Home'
+ ,p_step_title => 'Kezdőlap'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title => 'Home'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
- ,p_last_upd_yyyymmddhh24miss => '20131006143449'
+ ,p_last_updated_by => 'MAGYAR'
+ ,p_last_upd_yyyymmddhh24miss => '20131120134724'
   );
 null;
  
@@ -448,6 +454,37 @@ wwv_flow_api.create_page_plug (
   p_plug_comment=> '');
 end;
 /
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 3084932038443540 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 1,
+  p_plug_name=> 'asd',
+  p_region_name=>'',
+  p_escape_on_http_output=>'Y',
+  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 20,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'BODY_3',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
  
 begin
  
@@ -459,6 +496,118 @@ end;
  
 begin
  
+null;
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>3085103772444856 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 1,
+  p_name=>'P1_ASD',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 3084932038443540+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_prompt=>'Asd',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'BUTTON',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> null,
+  p_cMaxlength=> 2000,
+  p_cHeight=> null,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'N',
+  p_button_execute_validations=>'Y',
+  p_button_action => 'SUBMIT',
+  p_button_is_hot=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>3085627757452159 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 1,
+  p_name=>'P1_ASDTXT',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 20,
+  p_item_plug_id => 3084932038443540+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Asdtxt',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||':P1_ASDTXT := SZUM(3,4);';
+
+wwv_flow_api.create_page_process(
+  p_id     => 3085314161447793 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 1,
+  p_process_sequence=> 10,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'asdasd',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
 null;
  
 end;
@@ -503,7 +652,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131118214544'
+ ,p_last_upd_yyyymmddhh24miss => '20131120221451'
   );
 null;
  
@@ -540,60 +689,6 @@ wwv_flow_api.create_page_plug (
   p_plug_query_row_count_max => 500,
   p_plug_query_show_nulls_as => ' - ',
   p_plug_display_condition_type => '',
-  p_pagination_display_position=>'BOTTOM_RIGHT',
-  p_plug_customized=>'0',
-  p_plug_caching=> 'NOT_CACHED',
-  p_plug_comment=> '');
-end;
-/
-declare
-  s varchar2(32767) := null;
-  l_clob clob;
-  l_length number := 1;
-begin
-s:=s||'BEGIN'||unistr('\000a')||
-''||unistr('\000a')||
-'for i in (SELECT column_name FROM all_tab_columns where upper(table_name) = upper(:P2_TV) ORDER BY 1)'||unistr('\000a')||
-'LOOP'||unistr('\000a')||
-'htp.p(APEX_ITEM.CHECKBOX(1,i.column_name)||i.column_name||''<br />'');'||unistr('\000a')||
-'END LOOP;'||unistr('\000a')||
-''||unistr('\000a')||
-''||unistr('\000a')||
-'END;';
-
-wwv_flow_api.create_page_plug (
-  p_id=> 2332609251562853 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_page_id=> 2,
-  p_plug_name=> 'Elévült: Oszlop választó',
-  p_region_name=>'',
-  p_escape_on_http_output=>'Y',
-  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 70,
-  p_plug_new_grid         => false,
-  p_plug_new_grid_row     => true,
-  p_plug_new_grid_column  => true,
-  p_plug_display_column=> null,
-  p_plug_display_point=> 'BODY_3',
-  p_plug_item_display_point=> 'ABOVE',
-  p_plug_source=> s,
-  p_plug_source_type=> 'PLSQL_PROCEDURE',
-  p_translate_title=> 'Y',
-  p_plug_query_row_template=> 1,
-  p_plug_query_headings_type=> 'QUERY_COLUMNS',
-  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
-  p_plug_query_row_count_max => 500,
-  p_plug_query_show_nulls_as => ' - ',
-  p_plug_display_condition_type => 'FUNCTION_BODY',
-  p_plug_display_when_condition => 'BEGIN'||unistr('\000a')||
-'--elévült'||unistr('\000a')||
-'return false;'||unistr('\000a')||
-'if :P2_TV = ''0'' THEN'||unistr('\000a')||
-'return false;'||unistr('\000a')||
-'ELSE'||unistr('\000a')||
-'return true;'||unistr('\000a')||
-'end if;'||unistr('\000a')||
-'END;',
   p_pagination_display_position=>'BOTTOM_RIGHT',
   p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
@@ -2384,6 +2479,9 @@ end;
 declare
     h varchar2(32767) := null;
 begin
+h := null;
+h:=h||'Válasszon táblát, majd jelölje be a megjelenítendő oszlopokat, és ha szükséges, megadhat egy oszlopot, mely szerint az adatokat rendezi a rendszer.';
+
 wwv_flow_api.create_page_item(
   p_id=>2326403512012904 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
@@ -2399,7 +2497,7 @@ wwv_flow_api.create_page_item(
   p_prompt=>'Táblaválasztó',
   p_source_type=> 'STATIC',
   p_display_as=> 'NATIVE_SELECT_LIST',
-  p_lov=> 'select distinct table_name, table_name as "a" from all_tab_columns where owner = ''SEMA1'' and table_name not like ''APEX%'' AND table_name not like ''DEMO%'';',
+  p_lov=> 'select distinct table_name, table_name as "a" from user_tables where table_name not like ''APEX%'' AND table_name not like ''DEMO%'';',
   p_lov_display_null=> 'YES',
   p_lov_translated=> 'N',
   p_lov_null_text=>'-- Válasszon táblát --',
@@ -2421,6 +2519,7 @@ wwv_flow_api.create_page_item(
   p_lov_display_extra=>'YES',
   p_protection_level => 'N',
   p_escape_on_http_output => 'Y',
+  p_help_text=> h,
   p_attribute_01 => 'SUBMIT',
   p_attribute_03 => 'Y',
   p_show_quick_picks=>'N',
@@ -2500,15 +2599,16 @@ wwv_flow_api.create_page_item(
   p_use_cache_before_default=> 'YES',
   p_item_default=> 'NO',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_prompt=>'Rendezés',
+  p_prompt=>'Rendezés:',
   p_source_type=> 'ALWAYS_NULL',
   p_display_as=> 'NATIVE_RADIOGROUP',
-  p_lov=> 'STATIC:ASC,DESC,NO',
+  p_lov=> 'STATIC:Növekvő;ASC,Csökkenő;DESC,Nincs;NO',
   p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
   p_cSize=> 30,
   p_cMaxlength=> 4000,
   p_cHeight=> 1,
+  p_cAttributes=> 'style="padding-left:10px;"',
   p_new_grid=> false,
   p_begin_on_new_line=> 'NO',
   p_begin_on_new_field=> 'YES',
@@ -2517,7 +2617,7 @@ wwv_flow_api.create_page_item(
   p_grid_column=> null,
   p_label_alignment=> 'RIGHT',
   p_field_alignment=> 'LEFT-CENTER',
-  p_field_template=> 2312428131365510+wwv_flow_api.g_id_offset,
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
   p_lov_display_extra=>'YES',
   p_protection_level => 'N',
@@ -2548,7 +2648,7 @@ wwv_flow_api.create_page_item(
   p_item_plug_id => 2320816810333200+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'YES',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_prompt=>'Rendező Oszlop',
+  p_prompt=>'Rendező Oszlop: ',
   p_source_type=> 'ALWAYS_NULL',
   p_display_as=> 'NATIVE_AUTO_COMPLETE',
   p_lov=> 'select column_name from all_tab_columns where owner = ''SEMA1'' AND table_name = :P2_TV',
@@ -2557,6 +2657,7 @@ wwv_flow_api.create_page_item(
   p_cSize=> 80,
   p_cMaxlength=> 4000,
   p_cHeight=> 5,
+  p_cAttributes=> 'style="padding-left:10px;"',
   p_new_grid=> false,
   p_begin_on_new_line=> 'NO',
   p_begin_on_new_field=> 'YES',
@@ -2609,9 +2710,9 @@ wwv_flow_api.create_page_item(
   p_display_as=> 'NATIVE_HIDDEN',
   p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
-  p_cSize=> null,
+  p_cSize=> 30,
   p_cMaxlength=> 4000,
-  p_cHeight=> null,
+  p_cHeight=> 1,
   p_new_grid=> false,
   p_begin_on_new_line=> 'YES',
   p_begin_on_new_field=> 'YES',
@@ -2621,7 +2722,11 @@ wwv_flow_api.create_page_item(
   p_label_alignment=> 'RIGHT',
   p_field_alignment=> 'LEFT-CENTER',
   p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
   p_attribute_01 => 'Y',
+  p_show_quick_picks=>'N',
   p_item_comment => '');
  
  
