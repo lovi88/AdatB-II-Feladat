@@ -1,0 +1,14 @@
+﻿Build started 2013.11.25. 21:30:59.
+     1>Project "G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Win32Project2\Win32Project2.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         F:\IDE\VS 2012\Installed\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D WIN32PROJECT2_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt myadd.cpp
+         myadd.cpp
+       Link:
+         F:\IDE\VS 2012\Installed\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Debug\Win32Project2.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Debug\Win32Project2.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Debug\Win32Project2.lib" /MACHINE:X86 /DLL Debug\myadd.obj
+            Creating library G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Debug\Win32Project2.lib and object G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Debug\Win32Project2.exp
+         Win32Project2.vcxproj -> G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Debug\Win32Project2.dll
+     1>Done Building Project "G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\Win32Project2\Win32Project2\Win32Project2.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.59

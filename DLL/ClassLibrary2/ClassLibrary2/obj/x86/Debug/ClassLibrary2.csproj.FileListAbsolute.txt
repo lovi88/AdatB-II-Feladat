@@ -1,0 +1,5 @@
+G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\ClassLibrary2\ClassLibrary2\bin\x86\Debug\ClassLibrary2.dll
+G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\ClassLibrary2\ClassLibrary2\bin\x86\Debug\ClassLibrary2.pdb
+G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\ClassLibrary2\ClassLibrary2\obj\x86\Debug\ClassLibrary2.csprojResolveAssemblyReference.cache
+G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\ClassLibrary2\ClassLibrary2\obj\x86\Debug\ClassLibrary2.dll
+G:\AA_NIK\5. FÉLÉV\AbH 2\Féléves\AdatB-II-Feladat\DLL\ClassLibrary2\ClassLibrary2\obj\x86\Debug\ClassLibrary2.pdb

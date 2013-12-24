@@ -1,0 +1,11 @@
+HÁZ_SZÁM,HÁZ_MEGNEVEZÉS,FÉRŐHELY_SZÁM
+1,fa,10
+2,piros,20
+3,kék,15
+4,zöld,12
+5,nagy,30
+6,kis,5
+7,kék,10
+8,fa,15
+9,nagy,40
+10,sárga,10
