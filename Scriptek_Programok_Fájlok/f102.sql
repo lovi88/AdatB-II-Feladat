@@ -12,7 +12,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 -- Application Export:
 --   Application:     102
 --   Name:            Lovas_Tábor
---   Date and Time:   01:52 Tuesday December 24, 2013
+--   Date and Time:   01:51 Wednesday December 25, 2013
 --   Exported By:     MAGYAR
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -26,11 +26,11 @@ prompt  APPLICATION 102 - Lovas_Tábor
  
 -- Application Statistics:
 --   Pages:                     16
---     Items:                   46
+--     Items:                   55
 --     Validations:              8
---     Processes:               20
---     Regions:                 27
---     Buttons:                 20
+--     Processes:               26
+--     Regions:                 30
+--     Buttons:                 22
 --   Shared Components:
 --     Logic:
 --     Navigation:
@@ -154,7 +154,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20131224013514',
+  p_checksum_salt_last_reset => '20131225000116',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -191,7 +191,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'MAGYAR',
-  p_last_upd_yyyymmddhh24miss=> '20131224013514',
+  p_last_upd_yyyymmddhh24miss=> '20131225000116',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -2924,7 +2924,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223232708'
+ ,p_last_upd_yyyymmddhh24miss => '20131224164321'
   );
 null;
  
@@ -3107,7 +3107,7 @@ s:=s||'ng></td>'||unistr('\000a')||
 '                    INSERT INTO táblanév (oszlop1,oszlop2,oszlop3,...)'||unistr('\000a')||
 '             ';
 
-s:=s||'       értékS (érték1,érték2,érték3,...)'||unistr('\000a')||
+s:=s||'       VALUES (érték1,érték2,érték3,...)'||unistr('\000a')||
 '                </td>'||unistr('\000a')||
 '            </tr>'||unistr('\000a')||
 '            <tr>'||unistr('\000a')||
@@ -5161,7 +5161,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131119005923'
+ ,p_last_upd_yyyymmddhh24miss => '20131224225412'
   );
 null;
  
@@ -5297,7 +5297,7 @@ wwv_flow_api.create_page_item(
   p_item_sequence=> 10,
   p_item_plug_id => 2930330828193612+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'NO',
-  p_prompt=>'Ház Kimutatás',
+  p_prompt=>'Házak Kimutatás',
   p_display_as=> 'BUTTON',
   p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
@@ -5797,7 +5797,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223231514'
+ ,p_last_upd_yyyymmddhh24miss => '20131224225024'
   );
 null;
  
@@ -5816,6 +5816,7 @@ wwv_flow_api.create_page_plug (
   p_page_id=> 6,
   p_plug_name=> 'Csoportok Űrlap',
   p_region_name=>'',
+  p_region_attributes=> 'style=max-width:800px;',
   p_escape_on_http_output=>'N',
   p_plug_template=> 2307410395365368+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 10,
@@ -6161,7 +6162,7 @@ wwv_flow_api.create_page_process(
   p_process_sql_clob => p,
   p_process_error_message=> '',
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
-  p_process_success_message=> 'Action Processed.',
+  p_process_success_message=> 'Feldolgozva.',
   p_process_is_stateful_y_n=>'N',
   p_process_comment=>'');
 end;
@@ -6757,7 +6758,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224013514'
+ ,p_last_upd_yyyymmddhh24miss => '20131224225129'
   );
 null;
  
@@ -6776,6 +6777,7 @@ wwv_flow_api.create_page_plug (
   p_page_id=> 8,
   p_plug_name=> 'Lakók Űrlap',
   p_region_name=>'',
+  p_region_attributes=> 'style=max-width:800px;',
   p_escape_on_http_output=>'N',
   p_plug_template=> 2307410395365368+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 10,
@@ -6787,10 +6789,12 @@ wwv_flow_api.create_page_plug (
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
   p_plug_query_row_count_max => 500,
   p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -7510,7 +7514,7 @@ wwv_flow_api.create_page_process(
   p_process_sql_clob => p,
   p_process_error_message=> '',
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
-  p_process_success_message=> 'Megvan',
+  p_process_success_message=> 'Feldolgozva.',
   p_process_is_stateful_y_n=>'N',
   p_process_comment=>'');
 end;
@@ -7842,7 +7846,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223232005'
+ ,p_last_upd_yyyymmddhh24miss => '20131224230059'
   );
 null;
  
@@ -8488,7 +8492,21 @@ end;
  
 begin
  
-null;
+wwv_flow_api.create_page_button(
+  p_id             => 2479820379217448 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 10,
+  p_button_sequence=> 10,
+  p_button_plug_id => 3003232192133257+wwv_flow_api.g_id_offset,
+  p_button_name    => 'VISSZA',
+  p_button_action  => 'REDIRECT_PAGE',
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Vissza',
+  p_button_position=> 'TOP',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'f?p=&APP_ID.:9:&SESSION.::&DEBUG.:::',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
  
 end;
 /
@@ -8577,7 +8595,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223231844'
+ ,p_last_upd_yyyymmddhh24miss => '20131224225601'
   );
 null;
  
@@ -8601,7 +8619,7 @@ wwv_flow_api.create_report_region (
   p_id=> 2972406060893250 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 12,
-  p_name=> 'Ház Kimutatás',
+  p_name=> 'Házak Kimutatás',
   p_region_name=>'',
   p_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
   p_display_sequence=> 10,
@@ -8859,7 +8877,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131118235100'
+ ,p_last_upd_yyyymmddhh24miss => '20131224224701'
   );
 null;
  
@@ -8878,6 +8896,7 @@ wwv_flow_api.create_page_plug (
   p_page_id=> 13,
   p_plug_name=> 'Házak Űrlap',
   p_region_name=>'',
+  p_region_attributes=> 'style=max-width:800px;',
   p_escape_on_http_output=>'N',
   p_plug_template=> 2307410395365368+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 10,
@@ -8889,10 +8908,12 @@ wwv_flow_api.create_page_plug (
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
   p_plug_query_row_count_max => 500,
   p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -9223,7 +9244,7 @@ wwv_flow_api.create_page_process(
   p_process_sql_clob => p,
   p_process_error_message=> '',
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
-  p_process_success_message=> 'Action Processed.',
+  p_process_success_message=> 'Feldolgozva.',
   p_process_is_stateful_y_n=>'N',
   p_process_comment=>'');
 end;
@@ -9304,7 +9325,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131119231254'
+ ,p_last_upd_yyyymmddhh24miss => '20131225000116'
   );
 null;
  
@@ -9719,7 +9740,7 @@ wwv_flow_api.create_report_columns (
   p_sum_column=> 'N',
   p_hidden_column=> 'N',
   p_display_as=>'SELECT_LIST_FROM_QUERY',
-  p_inline_lov=> 'select "CSOPORT_NÉV" || '' - '' || "CSOPORTVEZETŐ" as "Csoportnev", "CSOPORT_NÉV" || '' - '' || "CSOPORTVEZETŐ" as "Csoportval" From csoportok',
+  p_inline_lov=> 'SELECT "CSOPORT_NÉV" || '' - '' || "CSOPORTVEZETŐ" AS "Csoportnev", "CSOPORT_NÉV" || '' - '' || "CSOPORTVEZETŐ" AS "Csoportval" FROM csoportok',
   p_lov_show_nulls=> 'NO',
   p_is_required=> false,
   p_pk_col_source=> s,
@@ -9794,7 +9815,7 @@ wwv_flow_api.create_page_button(
   p_button_image_alt=> 'Töröl',
   p_button_position=> 'REGION_TEMPLATE_DELETE',
   p_button_alignment=> 'RIGHT',
-  p_button_redirect_url=> 'javascript:apex.confirm(htmldb_delete_message,''MULTI_ROW_DELETE'');',
+  p_button_redirect_url=> 'javascript:apex.confirm(''biztos ?'',''MULTI_ROW_DELETE'');',
   p_button_execute_validations=>'N',
   p_required_patch => null + wwv_flow_api.g_id_offset);
  
@@ -10076,7 +10097,7 @@ wwv_flow_api.create_page_process(
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
   p_process_when=>'MULTI_ROW_DELETE',
   p_process_when_type=>'REQUEST_EQUALS_CONDITION',
-  p_process_success_message=> '#MRD_COUNT# row(s) deleted.',
+  p_process_success_message=> '#MRD_COUNT# sor torolve.',
   p_process_is_stateful_y_n=>'N',
   p_process_comment=>'');
 end;
@@ -10196,7 +10217,7 @@ wwv_flow_api.create_page_process(
   p_process_error_message=> '',
   p_error_display_location=> 'INLINE_IN_NOTIFICATION',
   p_process_when_button_id=>3027200954340925 + wwv_flow_api.g_id_offset,
-  p_process_success_message=> '',
+  p_process_success_message=> 'Siker',
   p_process_is_stateful_y_n=>'N',
   p_process_comment=>'');
 end;
@@ -10344,7 +10365,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131221180507'
+ ,p_last_upd_yyyymmddhh24miss => '20131224222505'
   );
 null;
  
@@ -10358,19 +10379,19 @@ declare
 begin
 s := null;
 wwv_flow_api.create_page_plug (
-  p_id=> 2429704077692334 + wwv_flow_api.g_id_offset,
+  p_id=> 2452328079923871 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 15,
-  p_plug_name=> 'Kezelés',
+  p_plug_name=> 'Parancs összeállító',
   p_region_name=>'',
-  p_escape_on_http_output=>'N',
+  p_escape_on_http_output=>'Y',
   p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 10,
-  p_plug_new_grid         => false,
+  p_plug_display_sequence=> 20,
+  p_plug_new_grid         => true,
   p_plug_new_grid_row     => true,
   p_plug_new_grid_column  => true,
   p_plug_display_column=> null,
-  p_plug_display_point=> 'REGION_POSITION_02',
+  p_plug_display_point=> 'REGION_POSITION_04',
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
@@ -10384,6 +10405,192 @@ wwv_flow_api.create_page_plug (
   p_plug_comment=> '');
 end;
 /
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 2452510548928275 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 15,
+  p_plug_name=> 'Parancs eredménye',
+  p_region_name=>'',
+  p_escape_on_http_output=>'Y',
+  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 30,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'REGION_POSITION_04',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => 'PLSQL_EXPRESSION',
+  p_plug_display_when_condition => ':P15_GEN is not null',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<strong>Alakja:</strong>'||unistr('\000a')||
+'oszlopnév Oszlop_típusa[,] <br />'||unistr('\000a')||
+'[oszlopnév2] [Oszlop2_típusa]... <br />'||unistr('\000a')||
+'[megszorítás] <br />'||unistr('\000a')||
+'<br />'||unistr('\000a')||
+'<table style=''text-align: left;''>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <th style=''min-width: 200px; text-align: left;''>Oszlopnév</th>'||unistr('\000a')||
+'            <th style=''text-align: left;''>Oszlop típus</th>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>Név</td>'||unistr('\000a')||
+'            <td>VARCHAR2(30),</td>'||unistr('\000a')||
+'    ';
+
+s:=s||'    </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>Azonosító1</td>'||unistr('\000a')||
+'            <td>CHAR(9) UNIQUE,</td>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>Nem</td>'||unistr('\000a')||
+'            <td>CHAR(1) CHECK( Nem IN (''f'',''n'') ),</td>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>Személyig_szám</td>'||unistr('\000a')||
+'            <td>CHAR(11) UNIQUE,</td>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>ház_szám</td>'||unistr('\000a')||
+'            <td>NUMBER(4) NOT NULL PRIMARY';
+
+s:=s||' KEY,</td>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>ház_megnevezés</td>'||unistr('\000a')||
+'            <td>VARCHAR2(25) NOT NULL,</td>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'        <tr>'||unistr('\000a')||
+'            <td>csoport_pontszám</td>'||unistr('\000a')||
+'            <td>NUMBER(5,1),</td>'||unistr('\000a')||
+'        </tr>'||unistr('\000a')||
+'    </table>'||unistr('\000a')||
+',CONSTRAINT pk_PersonID PRIMARY KEY (P_Id,LastName)';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 2459306120532600 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 15,
+  p_plug_name=> 'Oszlopdefiníció minta',
+  p_region_name=>'',
+  p_escape_on_http_output=>'Y',
+  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 35,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'REGION_POSITION_04',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => 'PLSQL_EXPRESSION',
+  p_plug_display_when_condition => ':P15_TYPE = ''Táblalétrehozás oszlopok megadásával''',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'FOR i in (SELECT DISTINCT column_name from USER_TAB_COLUMNS where table_name = :P15_ACT_TABLE) '||unistr('\000a')||
+'LOOP'||unistr('\000a')||
+'  htp.p(''<div style="min-width:200px; display: inline-block;">'' || i.column_name ||'' </div> ''||APEX_ITEM.TEXT(50) || ''<br />'' );'||unistr('\000a')||
+'END LOOP;'||unistr('\000a')||
+''||unistr('\000a')||
+'htp.p(''<br />'');'||unistr('\000a')||
+''||unistr('\000a')||
+'';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 2464332233975389 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 15,
+  p_plug_name=> 'Beszúrandó Oszlop-érték párok',
+  p_region_name=>'',
+  p_escape_on_http_output=>'Y',
+  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 25,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'REGION_POSITION_04',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'PLSQL_PROCEDURE',
+  p_translate_title=> 'Y',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => 'PLSQL_EXPRESSION',
+  p_plug_display_when_condition => ':P15_TYPE = ''Új sor felvétele a kiválasztott táblába'' and :P15_ACT_TABLE is not null',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+ 
+begin
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 2465924277398895 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 15,
+  p_button_sequence=> 10,
+  p_button_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_button_name    => 'MEHET',
+  p_button_action  => 'SUBMIT',
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Mehet',
+  p_button_position=> 'BELOW_BOX',
+  p_button_alignment=> 'LEFT',
+  p_button_redirect_url=> '',
+  p_button_execute_validations=>'Y',
+  p_button_condition=> ':P15_TYPE is not null',
+  p_button_condition_type=> 'PLSQL_EXPRESSION',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+ 
+end;
+/
+
  
 begin
  
@@ -10392,9 +10599,817 @@ null;
 end;
 /
 
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2454222248982795 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_TYPE',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'SQL Típusa',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'STATIC2:Táblalétrehozás meglévő táblából,Táblalétrehozás oszlopok megadásával,Tábla sorainak frissítése,Tábla sorainak törlése,Új sor felvétele a kiválasztott táblába',
+  p_lov_display_null=> 'YES',
+  p_lov_translated=> 'N',
+  p_lov_null_text=>'-- kérem válasszon --',
+  p_lov_null_value=> '',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'style=''min-width:100px;''',
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'SUBMIT',
+  p_attribute_03 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2454706684035550 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_UJT_NEWNAME',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 35,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Új tábla neve',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>':P15_TYPE IN(''Táblalétrehozás meglévő táblából'',''Táblalétrehozás oszlopok megadásával'')',
+  p_display_when_type=>'PLSQL_EXPRESSION',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2455023912057960 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_ACT_TABLE',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 30,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Kijelőlt tábla',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'select table_name as k, table_name as v from user_tables',
+  p_lov_display_null=> 'YES',
+  p_lov_translated=> 'N',
+  p_lov_null_text=>'-- kérem válasszon táblát --',
+  p_lov_null_value=> '',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>':P15_TYPE IN (''Táblalétrehozás meglévő táblából'',''Tábla sorainak frissítése'',''Tábla sorainak törlése'',''Új sor felvétele a kiválasztott táblába'')',
+  p_display_when_type=>'PLSQL_EXPRESSION',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'SUBMIT',
+  p_attribute_03 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2456101193159679 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_UJT_OSZL_MEGAD',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 40,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Oszlopdefiníció',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXTAREA',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 40,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 10,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>':P15_TYPE = ''Táblalétrehozás oszlopok megadásával''',
+  p_display_when_type=>'PLSQL_EXPRESSION',
+  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'Y',
+  p_attribute_02 => 'N',
+  p_attribute_03 => 'N',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2461709375702839 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_UPD_OSZL',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 50,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Frissítendő oszlopok',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 150,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>':P15_TYPE = ''Tábla sorainak frissítése''',
+  p_display_when_type=>'PLSQL_EXPRESSION',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2461931575707773 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_UPDEL_SZUKIT',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 60,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Szűkítő feltétel',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 150,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>':P15_TYPE IN(''Tábla sorainak frissítése'',''Tábla sorainak törlése'')  and :P15_SZUKIT_E = ''Y''',
+  p_display_when_type=>'PLSQL_EXPRESSION',
+  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2468318628519068 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_SZUKIT_E',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 55,
+  p_item_plug_id => 2452328079923871+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default=> 'Y',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_RADIOGROUP',
+  p_lov=> 'STATIC2:Használok szűkítést;Y,Nem használok szűkítést;N',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_display_when=>':P15_TYPE IN (''Tábla sorainak frissítése'',''Tábla sorainak törlése'')',
+  p_display_when_type=>'PLSQL_EXPRESSION',
+  p_field_template=> 2312526594365514+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => '1',
+  p_attribute_02 => 'SUBMIT',
+  p_attribute_03 => 'Y',
+  p_attribute_04 => 'VERTICAL',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2469406464631081 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_EREDMENY',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 70,
+  p_item_plug_id => 2452510548928275+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Futási eredmény',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_tag_attributes  => 'style=''min-width:1000px;''',
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>2476319004706804 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 15,
+  p_name=>'P15_GEN',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 65,
+  p_item_plug_id => 2452510548928275+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Generált SQL',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_tag_attributes  => 'style=''min-width:1000px;''',
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
  
 begin
  
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||':P15_ACT_TABLE := null;'||unistr('\000a')||
+':P15_UJT_NEWNAME := null;'||unistr('\000a')||
+':P15_UJT_OSZL_MEGAD := null;'||unistr('\000a')||
+':P15_UPD_OSZL := null;'||unistr('\000a')||
+':P15_UPDEL_SZUKIT := null;'||unistr('\000a')||
+':P15_EREDMENY := null;'||unistr('\000a')||
+':P15_GEN := null;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2466804416459368 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 15,
+  p_process_sequence=> 10,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'OnTypeChangeClear',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when=>'P15_TYPE',
+  p_process_when_type=>'REQUEST_EQUALS_CONDITION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'DECLARE'||unistr('\000a')||
+'	str VARCHAR2(1000);'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'	str := ''CREATE TABLE '' || :P15_UJT_NEWNAME || '' AS SELECT * FROM '' || :P15_ACT_TABLE;'||unistr('\000a')||
+''||unistr('\000a')||
+'	:P15_GEN:=str;'||unistr('\000a')||
+'	execute immediate str;'||unistr('\000a')||
+''||unistr('\000a')||
+'	:P15_EREDMENY := ''Sikeres végrehajtás'';'||unistr('\000a')||
+''||unistr('\000a')||
+'EXCEPTION WHEN OTHERS THEN'||unistr('\000a')||
+'	:P15_EREDMENY := ''A végrehajtás ismeretlen okból megszakadt, ellenőrizze a lekérdezést és próbálja újra'';'||unistr('\000a')||
+'	RAISE;'||unistr('\000a')||
+''||unistr('\000a')||
+'END;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2467206886488432 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 15,
+  p_process_sequence=> 20,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'UJT_COPY',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>2465924277398895 + wwv_flow_api.g_id_offset,
+  p_process_when=>':P15_TYPE = ''Táblalétrehozás meglévő táblából''',
+  p_process_when_type=>'PLSQL_EXPRESSION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'DECLARE'||unistr('\000a')||
+'	str VARCHAR2(1000);'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'	str := ''CREATE TABLE '' || :P15_UJT_NEWNAME || '' ('';'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	str := str || :P15_UJT_OSZL_MEGAD;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	str := str || '')'';'||unistr('\000a')||
+''||unistr('\000a')||
+'	:P15_GEN:=str;'||unistr('\000a')||
+'	execute immediate str;'||unistr('\000a')||
+''||unistr('\000a')||
+'	:P15_EREDMENY := ''Sikeres végrehajtás'';'||unistr('\000a')||
+''||unistr('\000a')||
+'EXCEPTION WHEN OTHERS THEN'||unistr('\000a')||
+'	:P15_EREDMENY := ''A végrehajtás ismeretlen okból megszakadt, ellenőrizze a lekérdezést és próbálja újra'';'||unistr('\000a')||
+'	RAISE;'||unistr('\000a')||
+'END;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2467413466490357 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 15,
+  p_process_sequence=> 30,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'UJT_OSZL',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>2465924277398895 + wwv_flow_api.g_id_offset,
+  p_process_when=>':P15_TYPE = ''Táblalétrehozás oszlopok megadásával''',
+  p_process_when_type=>'PLSQL_EXPRESSION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'DECLARE'||unistr('\000a')||
+'	str VARCHAR2(1000);'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'	if :P15_ACT_TABLE is null'||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		raise_application_error(-20001, ''Adjon meg egy kezelendő táblát (Kijelőlt tábla)'');'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+''||unistr('\000a')||
+'	if :P15_SZUKIT_E = ''Y'' and :P15_UPDEL_SZUKIT is null'||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		raise_application_error(-20002, ''Adjon meg szűkítő feltételt'');'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	if :P15_UPD_OSZL is null'||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		raise_application_error(-20003, ''Adja meg a frissítéseket'');'||unistr('\000a')||
+'	end';
+
+p:=p||' if;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	str := ''UPDATE ''|| :P15_ACT_TABLE || '' SET '' || :P15_UPD_OSZL;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	if :P15_SZUKIT_E = ''Y'''||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		str := str || '' WHERE '' || :P15_UPDEL_SZUKIT;'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	:P15_GEN:=str;'||unistr('\000a')||
+'	execute immediate str;'||unistr('\000a')||
+''||unistr('\000a')||
+'	:P15_EREDMENY := ''Sikeres végrehajtás'';'||unistr('\000a')||
+''||unistr('\000a')||
+'EXCEPTION WHEN OTHERS THEN'||unistr('\000a')||
+'	:P15_EREDMENY := ''A végrehajtás ismeretlen okból megszakadt, ellenőrizze a lekérdezést és próbálja újra'';'||unistr('\000a')||
+'	RAISE;'||unistr('\000a')||
+'END;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2467631474495543 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 15,
+  p_process_sequence=> 40,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'UPDATE_SOR',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>2465924277398895 + wwv_flow_api.g_id_offset,
+  p_process_when=>':P15_TYPE = ''Tábla sorainak frissítése''',
+  p_process_when_type=>'PLSQL_EXPRESSION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'DECLARE'||unistr('\000a')||
+'	str VARCHAR2(1000);'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'	if :P15_ACT_TABLE is null'||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		raise_application_error(-20001, ''Adjon meg egy kezelendő táblát (Kijelőlt tábla)'');'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+''||unistr('\000a')||
+'	if :P15_SZUKIT_E = ''Y'' and :P15_UPDEL_SZUKIT is null'||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		raise_application_error(-20002, ''Adjon meg szűkítő feltételt'');'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	str := ''DELETE FROM ''|| :P15_ACT_TABLE;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	if :P15_SZUKIT_E = ''Y'''||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		str := str || '' WHERE ';
+
+p:=p||''' || :P15_UPDEL_SZUKIT;'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	:P15_GEN:=str;'||unistr('\000a')||
+'	execute immediate str;'||unistr('\000a')||
+''||unistr('\000a')||
+'	:P15_EREDMENY := ''Sikeres végrehajtás'';'||unistr('\000a')||
+''||unistr('\000a')||
+'EXCEPTION WHEN OTHERS THEN'||unistr('\000a')||
+'	:P15_EREDMENY := ''A végrehajtás ismeretlen okból megszakadt, ellenőrizze a lekérdezést és próbálja újra'';'||unistr('\000a')||
+'	RAISE;'||unistr('\000a')||
+'END;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2467819138501435 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 15,
+  p_process_sequence=> 50,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'DEL_SOR',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>2465924277398895 + wwv_flow_api.g_id_offset,
+  p_process_when=>':P15_TYPE = ''Tábla sorainak törlése''',
+  p_process_when_type=>'PLSQL_EXPRESSION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'DECLARE'||unistr('\000a')||
+'	str VARCHAR2(1000);'||unistr('\000a')||
+'	vals VARCHAR2(500);'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	TYPE idxt IS TABLE OF NUMBER INDEX BY PLS_INTEGER;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	j NUMBER(2);'||unistr('\000a')||
+'	idx_index NUMBER(2);'||unistr('\000a')||
+'	inx_es idxt;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	curid INTEGER;'||unistr('\000a')||
+'	ret INTEGER;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'	if :P15_ACT_TABLE is null'||unistr('\000a')||
+'	then'||unistr('\000a')||
+'		raise_application_error(-20001, ''Adjon meg egy kezelendő táblát (Kijelőlt tábla)'');'||unistr('\000a')||
+'	end if;'||unistr('\000a')||
+''||unistr('\000a')||
+'	str := ''INSERT INTO '' || :P15_ACT_TABLE || ''( '';'||unistr('\000a')||
+'	vals := ''VALUES ( '';'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	';
+
+p:=p||''||unistr('\000a')||
+'	j := 0;'||unistr('\000a')||
+'	idx_index := 0;'||unistr('\000a')||
+'	FOR i in (SELECT DISTINCT column_name from USER_TAB_COLUMNS where table_name = :P15_ACT_TABLE) '||unistr('\000a')||
+'	LOOP'||unistr('\000a')||
+'		j := j + 1;'||unistr('\000a')||
+'		'||unistr('\000a')||
+'		if apex_application.g_f50(j) is not null'||unistr('\000a')||
+'		then'||unistr('\000a')||
+'			'||unistr('\000a')||
+'			if idx_index > 0'||unistr('\000a')||
+'			then'||unistr('\000a')||
+'				str := str || '', '';'||unistr('\000a')||
+'				vals := vals || '', '';'||unistr('\000a')||
+'			end if;'||unistr('\000a')||
+'			'||unistr('\000a')||
+'			idx_index := idx_index + 1;'||unistr('\000a')||
+'			'||unistr('\000a')||
+'			str := str || i.column_name;'||unistr('\000a')||
+'			vals := vals || '':p''|| idx_index;'||unistr('\000a')||
+'		';
+
+p:=p||'	'||unistr('\000a')||
+'			inx_es(idx_index) := j;'||unistr('\000a')||
+'		end if;'||unistr('\000a')||
+'	END LOOP;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	str := str || '' ) '';'||unistr('\000a')||
+'	str := str || vals || '' )'';'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	curid := DBMS_SQL.OPEN_CURSOR;'||unistr('\000a')||
+'	DBMS_SQL.PARSE(curid, str, DBMS_SQL.NATIVE);'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	for i in inx_es.FIRST..inx_es.LAST'||unistr('\000a')||
+'	loop'||unistr('\000a')||
+'		DBMS_SQL.BIND_VARIABLE(curid, ''p'' || i, apex_application.g_f50(inx_es(i)));'||unistr('\000a')||
+'	end loop;'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	ret := DBMS_SQL.EXECUTE(curid);'||unistr('\000a')||
+'	DBMS_SQL.CLOSE_CURSOR(curid);'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	'||unistr('\000a')||
+'	:P15_GEN ';
+
+p:=p||':= str;'||unistr('\000a')||
+'	:P15_EREDMENY := ''Sikeres végrehajtás'';'||unistr('\000a')||
+''||unistr('\000a')||
+'EXCEPTION WHEN OTHERS THEN'||unistr('\000a')||
+'    IF DBMS_SQL.IS_OPEN(curid) THEN'||unistr('\000a')||
+'      DBMS_SQL.CLOSE_CURSOR(curid);'||unistr('\000a')||
+'    END IF;'||unistr('\000a')||
+'    :P15_EREDMENY := ''A végrehajtás ismeretlen okból megszakadt, ellenőrizze a lekérdezést és próbálja újra'';'||unistr('\000a')||
+'    RAISE;'||unistr('\000a')||
+'END;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2468025025503106 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 15,
+  p_process_sequence=> 60,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'INSERT_SOR',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>2465924277398895 + wwv_flow_api.g_id_offset,
+  p_process_when=>':P15_TYPE = ''Új sor felvétele a kiválasztott táblába''',
+  p_process_when_type=>'PLSQL_EXPRESSION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
 null;
  
 end;
