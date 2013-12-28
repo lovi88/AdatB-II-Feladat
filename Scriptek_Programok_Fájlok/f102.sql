@@ -12,7 +12,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 -- Application Export:
 --   Application:     102
 --   Name:            Lovas_Tábor
---   Date and Time:   01:51 Wednesday December 25, 2013
+--   Date and Time:   13:26 Saturday December 28, 2013
 --   Exported By:     MAGYAR
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -26,11 +26,11 @@ prompt  APPLICATION 102 - Lovas_Tábor
  
 -- Application Statistics:
 --   Pages:                     16
---     Items:                   55
+--     Items:                   53
 --     Validations:              8
 --     Processes:               26
 --     Regions:                 30
---     Buttons:                 22
+--     Buttons:                 24
 --   Shared Components:
 --     Logic:
 --     Navigation:
@@ -41,6 +41,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 --       NavBar Entries:         1
 --     Security:
 --       Authentication:         1
+--       Authorization:          2
 --     User Interface:
 --       Themes:                 1
 --       Templates:
@@ -154,7 +155,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20131225000116',
+  p_checksum_salt_last_reset => '20131228130033',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -191,7 +192,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'MAGYAR',
-  p_last_upd_yyyymmddhh24miss=> '20131225000116',
+  p_last_upd_yyyymmddhh24miss=> '20131228130033',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -246,7 +247,26 @@ prompt  ...authorization schemes
  
 begin
  
-null;
+--application/shared_components/security/authorization/adminoknak
+wwv_flow_api.create_security_scheme (
+  p_id => 2488005108153445 + wwv_flow_api.g_id_offset
+ ,p_flow_id => wwv_flow.g_flow_id
+ ,p_name => 'Adminoknak'
+ ,p_scheme_type => 'NATIVE_EXISTS'
+ ,p_attribute_01 => 'SELECT * FROM wwv_flow_group_users WHERE UPPER(group_name) = UPPER(''adminok'') and user_id = (SELECT user_id FROM wwv_flow_users WHERE user_name = :APP_USER)'
+ ,p_error_message => 'A funkciot csak adminisztratorok erhetik el.'
+ ,p_caching => 'BY_USER_BY_SESSION'
+  );
+--application/shared_components/security/authorization/dolgozoknak
+wwv_flow_api.create_security_scheme (
+  p_id => 2488324924174615 + wwv_flow_api.g_id_offset
+ ,p_flow_id => wwv_flow.g_flow_id
+ ,p_name => 'Dolgozoknak'
+ ,p_scheme_type => 'NATIVE_EXISTS'
+ ,p_attribute_01 => 'SELECT * FROM wwv_flow_group_users WHERE UPPER(group_name) = UPPER(''dolgozok'') and user_id = (SELECT user_id FROM wwv_flow_users WHERE user_name = :APP_USER)'
+ ,p_error_message => 'A funkcio csak dolgozoknak erheto el.'
+ ,p_caching => 'BY_USER_BY_SESSION'
+  );
  
 end;
 /
@@ -324,6 +344,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 2,
   p_tab_also_current_for_pages => '2',
   p_tab_parent_tabset=>'',
+  p_security_scheme => 2488324924174615+ wwv_flow_api.g_id_offset,
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/űrlapok_kimutatások
@@ -337,6 +358,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 4,
   p_tab_also_current_for_pages => '4',
   p_tab_parent_tabset=>'',
+  p_security_scheme => 2488324924174615+ wwv_flow_api.g_id_offset,
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/sql_parancs
@@ -350,6 +372,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 3,
   p_tab_also_current_for_pages => '3',
   p_tab_parent_tabset=>'',
+  p_security_scheme => 2488005108153445+ wwv_flow_api.g_id_offset,
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/paraméteres_sql
@@ -363,6 +386,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 15,
   p_tab_also_current_for_pages => '15',
   p_tab_parent_tabset=>'',
+  p_security_scheme => 2488005108153445+ wwv_flow_api.g_id_offset,
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/opencl
@@ -371,11 +395,12 @@ wwv_flow_api.create_tab (
   p_flow_id=> wwv_flow.g_flow_id,
   p_tab_set=> 'TS1',
   p_tab_sequence=> 70,
-  p_tab_name=> 'OpenCl',
-  p_tab_text => 'OpenCl',
+  p_tab_name=> 'OpenCL',
+  p_tab_text => 'OpenCL',
   p_tab_step => 18,
   p_tab_also_current_for_pages => '18',
   p_tab_parent_tabset=>'',
+  p_security_scheme => 2488005108153445+ wwv_flow_api.g_id_offset,
   p_tab_comment  => '');
  
  
@@ -438,7 +463,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223230820'
+ ,p_last_upd_yyyymmddhh24miss => '20131228130033'
   );
 null;
  
@@ -484,13 +509,50 @@ declare
   l_clob clob;
   l_length number := 1;
 begin
-s := null;
+s:=s||'<h2>Az Adatbázis Használat 2 tárgy keretei közt elkészűlt alkalmazás célja</h2>'||unistr('\000a')||
+''||unistr('\000a')||
+'    <p>'||unistr('\000a')||
+'        A rendszer feladata az, hogy egy tábor személyzetének megkönnyítse a tábor lakóival kapcsolatos adminisztrációt. A nyilvántartásban tárolja a lakók, a tábori csoportok, illetve a tábori férőhelyekkel kapcsolatos legfontosabb adatokat. A rendszer adminisztrátorának, az SQL futtatását megkönnyítő szakass';
+
+s:=s||'zal is rendelkezik, illetve egy olyan részegységgel, mely információt biztosít a rendszer környezetének OpenCL képességeiről.'||unistr('\000a')||
+'    </p>'||unistr('\000a')||
+''||unistr('\000a')||
+'    <h2>Az alkalmazás lapjai</h2>'||unistr('\000a')||
+''||unistr('\000a')||
+'    <h3>Adminok által elérhető lapok</h3>'||unistr('\000a')||
+''||unistr('\000a')||
+'    <ul>'||unistr('\000a')||
+'        <li>SQL Parancs</li>'||unistr('\000a')||
+'        <li>Paraméteres SQL</li>'||unistr('\000a')||
+'        <li>OpenCL</li>'||unistr('\000a')||
+'    </ul>'||unistr('\000a')||
+''||unistr('\000a')||
+'    <h3>Dolgozók által elérhető lapok</h3>'||unistr('\000a')||
+'    <ul>'||unistr('\000a')||
+'        <li>Táblák Megjelení';
+
+s:=s||'tése</li>'||unistr('\000a')||
+'        <li>Űrlap'||unistr('\000a')||
+''||unistr('\000a')||
+'             <ul>'||unistr('\000a')||
+'                 <li>Házak Kimutatás</li>'||unistr('\000a')||
+'                 <li>Csoportok Kimutatás</li>'||unistr('\000a')||
+'                 <li>Lakók Kimutatás</li>'||unistr('\000a')||
+'                 <li>Házak és Lakóik</li>'||unistr('\000a')||
+'                 <li>Lakókezelés</li>'||unistr('\000a')||
+'             </ul>'||unistr('\000a')||
+''||unistr('\000a')||
+'        </li>'||unistr('\000a')||
+''||unistr('\000a')||
+'    </ul>';
+
 wwv_flow_api.create_page_plug (
   p_id=> 3084932038443540 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_plug_name=> 'asd',
+  p_plug_name=> 'Leírás',
   p_region_name=>'',
+  p_region_attributes=> 'style=''max-width:1000px;''',
   p_escape_on_http_output=>'Y',
   p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 20,
@@ -502,10 +564,12 @@ wwv_flow_api.create_page_plug (
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
   p_plug_query_row_count_max => 500,
   p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -513,97 +577,29 @@ end;
  
 begin
  
-null;
- 
-end;
-/
-
- 
-begin
- 
-null;
- 
-end;
-/
-
-declare
-    h varchar2(32767) := null;
-begin
-wwv_flow_api.create_page_item(
-  p_id=>3085103772444856 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_flow_step_id=> 1,
-  p_name=>'P1_ASD',
-  p_data_type=> 'VARCHAR',
-  p_is_required=> false,
-  p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 10,
-  p_item_plug_id => 3084932038443540+wwv_flow_api.g_id_offset,
-  p_use_cache_before_default=> 'NO',
-  p_prompt=>'Asd',
-  p_source_type=> 'STATIC',
-  p_display_as=> 'BUTTON',
-  p_lov_display_null=> 'NO',
-  p_lov_translated=> 'N',
-  p_cSize=> null,
-  p_cMaxlength=> 2000,
-  p_cHeight=> null,
-  p_new_grid=> false,
-  p_begin_on_new_line=> 'NO',
-  p_begin_on_new_field=> 'YES',
-  p_colspan=> null,
-  p_rowspan=> null,
-  p_grid_column=> null,
-  p_label_alignment=> 'LEFT',
-  p_field_alignment=> 'LEFT',
-  p_is_persistent=> 'N',
-  p_button_execute_validations=>'Y',
-  p_button_action => 'SUBMIT',
+wwv_flow_api.create_page_button(
+  p_id             => 2495709662458740 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 1,
+  p_button_sequence=> 10,
+  p_button_plug_id => 3084932038443540+wwv_flow_api.g_id_offset,
+  p_button_name    => 'BEJELENTKEZÉS',
+  p_button_action  => 'REDIRECT_PAGE',
   p_button_is_hot=>'N',
-  p_item_comment => '');
+  p_button_image_alt=> 'Bejelentkezés',
+  p_button_position=> 'ABOVE_BOX',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'f?p=&APP_ID.:101:&SESSION.::&DEBUG.:::',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
  
  
 end;
 /
 
-declare
-    h varchar2(32767) := null;
-begin
-wwv_flow_api.create_page_item(
-  p_id=>3085627757452159 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_flow_step_id=> 1,
-  p_name=>'P1_ASDTXT',
-  p_data_type=> 'VARCHAR',
-  p_is_required=> false,
-  p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 20,
-  p_item_plug_id => 3084932038443540+wwv_flow_api.g_id_offset,
-  p_use_cache_before_default=> 'YES',
-  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_prompt=>'Asdtxt',
-  p_source_type=> 'STATIC',
-  p_display_as=> 'NATIVE_TEXT_FIELD',
-  p_lov_display_null=> 'NO',
-  p_lov_translated=> 'N',
-  p_cSize=> 30,
-  p_cMaxlength=> 4000,
-  p_cHeight=> 1,
-  p_new_grid=> false,
-  p_begin_on_new_line=> 'YES',
-  p_begin_on_new_field=> 'YES',
-  p_colspan=> null,
-  p_rowspan=> null,
-  p_grid_column=> null,
-  p_label_alignment=> 'RIGHT',
-  p_field_alignment=> 'LEFT-CENTER',
-  p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
-  p_is_persistent=> 'Y',
-  p_attribute_01 => 'N',
-  p_attribute_02 => 'N',
-  p_attribute_04 => 'TEXT',
-  p_item_comment => '');
  
+begin
+ 
+null;
  
 end;
 /
@@ -668,16 +664,21 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Táblák Megtekintése'
  ,p_step_title => 'Táblák Megtekintése'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
  ,p_first_item => 'NO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223233707'
+ ,p_last_upd_yyyymmddhh24miss => '20131228120922'
   );
 null;
  
@@ -2915,16 +2916,21 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'SQL Parancs'
  ,p_step_title => 'SQL Parancs'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
  ,p_first_item => 'NO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488005108153445 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224164321'
+ ,p_last_upd_yyyymmddhh24miss => '20131228124555'
   );
 null;
  
@@ -5152,16 +5158,21 @@ wwv_flow_api.create_page (
  ,p_name => 'Űrlap'
  ,p_alias => 'ŰRLAP'
  ,p_step_title => 'Űrlap'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
  ,p_first_item => 'NO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224225412'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121123'
   );
 null;
  
@@ -5508,15 +5519,21 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Csoportok Kimutatás'
  ,p_step_title => 'Csoportok Kimutatás'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223231859'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121144'
   );
 null;
  
@@ -5787,17 +5804,23 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Csoportok Űrlap'
  ,p_step_title => 'Csoportok Űrlap'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_javascript_code => 
 'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224225024'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121156'
   );
 null;
  
@@ -6232,15 +6255,21 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Lakók Kimutatás'
  ,p_step_title => 'Lakók Kimutatás'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224010305'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121207'
   );
 null;
  
@@ -6748,17 +6777,23 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Lakók Űrlap'
  ,p_step_title => 'Lakók Űrlap'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_javascript_code => 
 'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224225129'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121224'
   );
 null;
  
@@ -7584,16 +7619,22 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Házak'
  ,p_step_title => 'Házak'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title => 'Házak'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223231942'
+ ,p_last_upd_yyyymmddhh24miss => '20131228125040'
   );
 null;
  
@@ -7794,7 +7835,22 @@ end;
  
 begin
  
-null;
+wwv_flow_api.create_page_button(
+  p_id             => 2496805216561582 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 9,
+  p_button_sequence=> 10,
+  p_button_plug_id => 2994517469091198+wwv_flow_api.g_id_offset,
+  p_button_name    => 'VISSZA',
+  p_button_action  => 'REDIRECT_PAGE',
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Vissza',
+  p_button_position=> 'TOP',
+  p_button_alignment=> 'LEFT',
+  p_button_redirect_url=> 'f?p=&APP_ID.:4:&SESSION.::&DEBUG.:::',
+  p_button_cattributes=>'style=''margin:10px;''',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
  
 end;
 /
@@ -7837,16 +7893,22 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'A kiválasztott Ház Lakói'
  ,p_step_title => 'A kiválasztott Ház Lakói'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title => 'A kiválasztott Ház Lakói'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224230059'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121241'
   );
 null;
  
@@ -8587,15 +8649,21 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Ház Kimutatás'
  ,p_step_title => 'Ház Kimutatás'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224225601'
+ ,p_last_upd_yyyymmddhh24miss => '20131228120957'
   );
 null;
  
@@ -8867,17 +8935,23 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Házak Űrlap'
  ,p_step_title => 'Házak Űrlap'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_javascript_code => 
 'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224224701'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121255'
   );
 null;
  
@@ -9314,18 +9388,23 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Lakókezelés'
  ,p_step_title => 'Lakókezelés'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
  ,p_first_item => 'NO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_javascript_code => 
 'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
+ ,p_required_role => 2488324924174615 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131225000116'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121302'
   );
 null;
  
@@ -10355,17 +10434,22 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Paraméteres SQL'
  ,p_step_title => 'Paraméteres SQL'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
  ,p_first_item => 'NO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_step_template => 2305408425365303 + wwv_flow_api.g_id_offset
+ ,p_required_role => 2488005108153445 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131224222505'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121328'
   );
 null;
  
@@ -10972,6 +11056,7 @@ wwv_flow_api.create_page_item(
   p_grid_column=> null,
   p_label_alignment=> 'RIGHT',
   p_field_alignment=> 'LEFT-CENTER',
+  p_read_only_when_type=>'ALWAYS',
   p_field_template=> 2312603537365515+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
   p_lov_display_extra=>'YES',
@@ -11451,6 +11536,7 @@ wwv_flow_api.create_page (
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_step_template => 2305408425365303 + wwv_flow_api.g_id_offset
+ ,p_required_role => 2488005108153445 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
  ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
@@ -11459,7 +11545,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131223182311'
+ ,p_last_upd_yyyymmddhh24miss => '20131228121356'
   );
 null;
  
