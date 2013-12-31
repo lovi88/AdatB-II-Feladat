@@ -1,0 +1,1 @@
+sqlplus sema1/sema1 @install_tables.sql

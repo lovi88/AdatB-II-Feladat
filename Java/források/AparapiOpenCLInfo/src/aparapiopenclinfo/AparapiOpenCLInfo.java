@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.sql.SQLException;
 
 
 //import java.io.IOException;
@@ -56,6 +55,6 @@ public class AparapiOpenCLInfo {
     }
 
     static String getOpenCLInfo() {
-        return "<div><h2>Az Aparapi által érzékelt OpenCl eszközök</h2><p>Legjobb eszköz: <br />Device 5233328 type:GPU maxComputeUnits=14 maxWorkItemDimensions=3 maxWorkItemSizes={256, 256, 256}   maxWorkWorkGroupSize=256  globalMemSize=2147483648  localMemSize=32768</p><p>Elsődleges CPU: <br />Device 227840384  type:CPU  maxComputeUnits=6  maxWorkItemDimensions=3  maxWorkItemSizes={1024, 1024, 1024}  maxWorkWorkGroupSize=1024  globalMemSize=8586293248  localMemSize=32768</p><p>Elsődleges GPU: <br />Device 5233328  type:GPU  maxComputeUnits=14  maxWorkItemDimensions=3  maxWorkItemSizes={256, 256, 256}  maxWorkWorkGroupSize=256  globalMemSize=2147483648  localMemSize=32768</p></div>";
+        return "<div><h2>Az Aparapi által érzékelt OpenCl eszközök</h2><p>Legjobb eszköz: <br />Device 5233328 type:GPU maxComputeUnits=14 maxWorkItemDimensions=3 maxWorkItemSizes={256, 256, 256}   maxWorkWorkGroupSize=256  globalMemSize=2147483648  localMemSize=32768</p><p>Elsődleges CPU: <br />Device 227840384  type:CPU  maxComputeUnits=6  maxWorkItemDimensions=3  maxWorkItemSizes={1024, 1024, 1024}  maxWorkWorkGroupSize=1024  globalMemSize=8586293248  localMemSize=32768</p><p>Elsődleges GPU: <br />Device 5233328  type:GPU  maxComputeUnits=14  maxWorkItemDimensions=3  maxWorkItemSizes={256, 256, 256}  maxWorkWorkGroupSize=256  globalMemSize=2147483648  localMemSize=32768</p><p></p></div>";
     }
 }

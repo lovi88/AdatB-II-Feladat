@@ -1,0 +1,2 @@
+copy /y C:\Users\Oracle\Documents\NetBeansProjects\ControlByBatch\build\classes\ControlByBatch.class C:\LJava\ControlByBatch.class 
+copy /y C:\Users\Oracle\Documents\NetBeansProjects\AparapiOpenCLInfo\dist\AparapiOpenCLInfo.jar C:\LJava\AparapiOpenCLInfo.jar
