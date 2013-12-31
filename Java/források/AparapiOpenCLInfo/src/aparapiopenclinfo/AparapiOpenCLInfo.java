@@ -1,10 +1,6 @@
 package aparapiopenclinfo;
 
-import com.amd.aparapi.Range;
-import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 //import java.io.IOException;
 /**
@@ -16,15 +12,19 @@ public class AparapiOpenCLInfo {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-
-        OCLFileWriter infoFileWriter = null;
+    public static void main(String[] args) {        
+        writeFile(getOpenCLInfo() + String.format("%n") + getTestRunString());
+        //System.out.println(getOpenCLInfo() + String.format("%n") + getTestRunString());
+    }
+    
+    public static void writeFile(String str){
+            OCLFileWriter infoFileWriter = null;
 
         String infoFilePath = "C:\\LJava\\OCLInfo.txt";
 
         try {
             infoFileWriter = new OCLFileWriter(infoFilePath);
-            infoFileWriter.write(getOpenCLInfo() + String.format("%n") + getTestRunString());
+            infoFileWriter.write(str);
 
         } catch (IOException e) {
             System.out.println("e: " + e.getMessage());
@@ -38,7 +38,6 @@ public class AparapiOpenCLInfo {
                 }
             }
         }
-
     }
 
     static float[] getRandFloatArr(int size) {
@@ -71,8 +70,8 @@ public class AparapiOpenCLInfo {
         int size = 200;
         SquareKernel sq = getNewTestSquare(size);
         sq.execute(size);
-
-        String ret = SquareKernel.GetTestRunHTML(sq);
+        
+        String ret = GetTestRunHTML(sq);
 
         ret += "<h3>Futási idő</h3>";
         ret += "<strong>Konvertálási idő (Java byte kód -> OpenCl kód): </strong>"+sq.getConversionTime()+"<br />";
@@ -85,6 +84,21 @@ public class AparapiOpenCLInfo {
         ret += "<h3>A kiszámított kimenet</h3>" + sq.OutputAsString() + "<br />" + String.format("%n");
 
         return ret;
+    }
+    
+    
+        public static String GetTestRunHTML(IRunInfo testrun) {
+
+        String html = "";
+        html += "<div>";
+        html += "<h2>Aparapi kernel feladata: " + testrun.getRunTask() + "</h2>";
+
+        html += "<p><h3>Futtató eszközről</h3>" + testrun.getRunMode() + "</p>";
+
+        html += "</div>";
+
+        html += String.format("%n");
+        return html;
     }
 
 }

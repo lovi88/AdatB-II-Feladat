@@ -8,8 +8,8 @@ import com.amd.aparapi.Kernel;
  */
 public class SquareKernel extends Kernel implements IRunInfo {
 
-    private float in[];
-    private float out[];
+    final private float in[];
+    final private float out[];
 
     public SquareKernel(float in[]) {
         this.in = in;
@@ -18,11 +18,6 @@ public class SquareKernel extends Kernel implements IRunInfo {
 
     public float[] getIn() {
         return in;
-    }
-
-    public void setIn(float[] in) {
-        this.in = in;
-        out = new float[in.length];
     }
 
     public float[] getOut() {
@@ -63,7 +58,7 @@ public class SquareKernel extends Kernel implements IRunInfo {
         return FloatArrayAsString(out);
     }
 
-    public String FloatArrayAsString(float[] input) {
+    private String FloatArrayAsString(float[] input) {
 
         if (input == null || input.length == 0) {
             return "";
@@ -82,20 +77,6 @@ public class SquareKernel extends Kernel implements IRunInfo {
     @Override
     public String getRunTask() {
         return "Négyzetre emelés: " + in.length + " float típusú számon";
-    }
-
-    public static String GetTestRunHTML(IRunInfo testrun) {
-
-        String html = "";
-        html += "<div>";
-        html += "<h2>Aparapi kernel feladata: " + testrun.getRunTask() + "</h2>";
-
-        html += "<p><h3>Futtató eszközről</h3>" + testrun.getRunMode() + "</p>";
-
-        html += "</div>";
-
-        html += String.format("%n");
-        return html;
     }
 
 }
