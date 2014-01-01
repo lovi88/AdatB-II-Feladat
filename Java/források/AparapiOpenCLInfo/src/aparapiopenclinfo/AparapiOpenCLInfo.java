@@ -12,13 +12,13 @@ public class AparapiOpenCLInfo {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
         writeFile(getOpenCLInfo() + String.format("%n") + getTestRunString());
         //System.out.println(getOpenCLInfo() + String.format("%n") + getTestRunString());
     }
-    
-    public static void writeFile(String str){
-            OCLFileWriter infoFileWriter = null;
+
+    public static void writeFile(String str) {
+        OCLFileWriter infoFileWriter = null;
 
         String infoFilePath = "C:\\LJava\\OCLInfo.txt";
 
@@ -70,24 +70,23 @@ public class AparapiOpenCLInfo {
         int size = 200;
         SquareKernel sq = getNewTestSquare(size);
         sq.execute(size);
-        
+
         String ret = GetTestRunHTML(sq);
 
         ret += "<h3>Futási idő</h3>";
-        ret += "<strong>Konvertálási idő (Java byte kód -> OpenCl kód): </strong>"+sq.getConversionTime()+"<br />";
-        ret += "<strong>Futási idő: </strong>"+sq.getExecutionTime()+"<br />";
-        ret += "<strong>Összidő: </strong>"+sq.getAccumulatedExecutionTime()+"<br />";
-        
+        ret += "<strong>Konvertálási idő (Java byte kód -> OpenCl kód): </strong>" + sq.getConversionTime() + "<br />";
+        ret += "<strong>Futási idő: </strong>" + sq.getExecutionTime() + "<br />";
+        ret += "<strong>Összidő: </strong>" + sq.getAccumulatedExecutionTime() + "<br />";
+
         ret += String.format("%n");
-        
+
         ret += "<h3>A generált bemenet</h3>" + sq.InputAsString() + "<br />" + String.format("%n");
         ret += "<h3>A kiszámított kimenet</h3>" + sq.OutputAsString() + "<br />" + String.format("%n");
 
         return ret;
     }
-    
-    
-        public static String GetTestRunHTML(IRunInfo testrun) {
+
+    public static String GetTestRunHTML(IRunInfo testrun) {
 
         String html = "";
         html += "<div>";
