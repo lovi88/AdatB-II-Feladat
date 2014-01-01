@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<snippets>
+   <group category="lovi_alap_struktúrák" language="PLSQL">
+      <snippet name="select_into" description="">
+         <code>
+            <![CDATA[SELECT count(*)
+INTO cnum
+FROM table_name
+WHERE kif]]>
+         </code>
+      </snippet>
+      <snippet name="pl_if" description="">
+         <code>
+            <![CDATA[if jnum>0 then
+
+end if;]]>
+         </code>
+      </snippet>
+   </group>
+</snippets>

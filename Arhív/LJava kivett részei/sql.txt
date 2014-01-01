@@ -1,0 +1,75 @@
+exec dbms_java.grant_permission( 'SCOTT', 'SYS:java.io.FilePermission', 'alma.txt', 'delete' );
+
+call dbms_java.grant_permission('SCOTT', 'SYS:java.io.FilePermission','<<ALL FILES>>', 'read, write, execute, delete');
+
+---
+
+
+select * from USER_JAVA_POLICY 
+
+DECLARE
+  ret varchar2(50);
+BEGIN
+dbms_output.enable;
+
+dbms_java.set_output(2000);
+
+ret := dbms_java.RUNJAVA('-cp C:\LJava ControlByBatch');
+
+END;
+
+
+--
+
+select * from USER_OBJECTS
+
+--
+
+DBMS_SCHEDULER.CREATE_PROGRAM (
+  program_name => 'mybatch',
+  program_type => 'EXECUTABLE',
+  program_action => 'C:\LJava myb.bat',
+  enabled => TRUE,
+  comments => 'meghiv egy java filet'
+);
+
+--
+
+DECLARE
+  ret varchar2(50);
+BEGIN
+dbms_output.enable;
+
+dbms_java.set_output(2000);
+
+ret := dbms_java.runjava_in_current_session('-cp C:\app\Oracle\product\11.2.0\dbhome_1\BIN\LJava ControlByBatch');
+
+END;
+
+--
+
+BEGIN
+  dbms_scheduler.drop_job('CTRLJOB');
+END;
+
+BEGIN
+DBMS_SCHEDULER.create_job (job_name        => 'CTRLJOB',
+                           job_type        => 'EXECUTABLE',
+                           job_action      => 'c:\windows\system32\cmd.exe /c start C:\LJava\control.bat',
+                           enabled         => FALSE,
+                           comments        => 'runs controll.bat'
+                           );
+END;
+
+CREATE OR REPLACE PROCEDURE execute_control_bat_file
+IS
+ BEGIN
+   DBMS_SCHEDULER.run_job ('CTRLJOB', TRUE);
+END execute_control_bat_file;
+
+
+BEGIN
+--execute_control_bat_file;
+DBMS_SCHEDULER.run_job ('CTRLJOB', TRUE);
+END;
+
