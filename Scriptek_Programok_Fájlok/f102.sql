@@ -12,7 +12,7 @@ prompt  APPLICATION 102 - Lovas_Tábor
 -- Application Export:
 --   Application:     102
 --   Name:            Lovas_Tábor
---   Date and Time:   13:26 Saturday December 28, 2013
+--   Date and Time:   15:21 Thursday January 2, 2014
 --   Exported By:     MAGYAR
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -28,8 +28,8 @@ prompt  APPLICATION 102 - Lovas_Tábor
 --   Pages:                     16
 --     Items:                   53
 --     Validations:              8
---     Processes:               26
---     Regions:                 30
+--     Processes:               27
+--     Regions:                 27
 --     Buttons:                 24
 --   Shared Components:
 --     Logic:
@@ -155,7 +155,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20131228130033',
+  p_checksum_salt_last_reset => '20140102152053',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -192,7 +192,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'MAGYAR',
-  p_last_upd_yyyymmddhh24miss=> '20131228130033',
+  p_last_upd_yyyymmddhh24miss=> '20140102152053',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -11545,7 +11545,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'MAGYAR'
- ,p_last_upd_yyyymmddhh24miss => '20131228121356'
+ ,p_last_upd_yyyymmddhh24miss => '20140102152053'
   );
 null;
  
@@ -11557,12 +11557,37 @@ declare
   l_clob clob;
   l_length number := 1;
 begin
-s := null;
+s:=s||'DECLARE'||unistr('\000a')||
+'  data_line   VARCHAR2(32766); -- Data line read from input file'||unistr('\000a')||
+'  data_file   UTL_FILE.FILE_TYPE; -- Data file handle'||unistr('\000a')||
+'  my_filename VARCHAR2(50) := ''OCLInfo.txt'';'||unistr('\000a')||
+'  veg_str VARCHAR2(32766) := '''';'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'  execute immediate ''CREATE OR replace directory LJAVA as ''''c:\LJava'''''';'||unistr('\000a')||
+'  data_file := UTL_FILE.FOPEN(''LJAVA'', my_filename, ''r'',32767); '||unistr('\000a')||
+''||unistr('\000a')||
+'  LOOP'||unistr('\000a')||
+'    UTL_FILE.GET_LINE(data_file, data_line)';
+
+s:=s||';'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    veg_str := veg_str||'' ''||data_line;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'  END LOOP;'||unistr('\000a')||
+''||unistr('\000a')||
+'EXCEPTION'||unistr('\000a')||
+'  WHEN no_data_found THEN'||unistr('\000a')||
+'    UTL_FILE.FCLOSE(data_file);'||unistr('\000a')||
+'    htp.p(veg_str);'||unistr('\000a')||
+'  When OTHERS THEN'||unistr('\000a')||
+'    htp.p(''<strong>Nem elérhető információs fájl kérem próbálja újra később, ha továbbra is ezt az üzenetet látja, forduljon a rendszer fejlesztőjéhez.</strong> <p>Lovas István: l.pista@hotmail.com</p>'');'||unistr('\000a')||
+'END;';
+
 wwv_flow_api.create_page_plug (
   p_id=> 2431723057674118 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 18,
-  p_plug_name=> 'Konfiguráció leírása, illetve az elérhető eszközök leírása',
+  p_plug_name=> 'OpenCL képes eszközök elérhető jellemzői',
   p_region_name=>'',
   p_escape_on_http_output=>'N',
   p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
@@ -11571,107 +11596,16 @@ wwv_flow_api.create_page_plug (
   p_plug_new_grid_row     => true,
   p_plug_new_grid_column  => true,
   p_plug_display_column=> null,
-  p_plug_display_point=> 'BODY_3',
+  p_plug_display_point=> 'REGION_POSITION_01',
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
-  p_plug_source_type=> 'STATIC_TEXT',
+  p_plug_source_type=> 'PLSQL_PROCEDURE',
+  p_translate_title=> 'Y',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
   p_plug_query_row_count_max => 500,
   p_plug_display_condition_type => '',
-  p_plug_caching=> 'NOT_CACHED',
-  p_plug_comment=> '');
-end;
-/
-declare
-  s varchar2(32767) := null;
-  l_clob clob;
-  l_length number := 1;
-begin
-s := null;
-wwv_flow_api.create_page_plug (
-  p_id=> 2431912376674123 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_page_id=> 18,
-  p_plug_name=> 'Összeadás teszt eredménye (generált adatokkal)',
-  p_region_name=>'',
-  p_escape_on_http_output=>'N',
-  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 20,
-  p_plug_new_grid         => false,
-  p_plug_new_grid_row     => true,
-  p_plug_new_grid_column  => true,
-  p_plug_display_column=> null,
-  p_plug_display_point=> 'BODY_3',
-  p_plug_item_display_point=> 'ABOVE',
-  p_plug_source=> s,
-  p_plug_source_type=> 'STATIC_TEXT',
-  p_plug_query_row_template=> 1,
-  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
-  p_plug_query_row_count_max => 500,
-  p_plug_display_condition_type => '',
-  p_plug_caching=> 'NOT_CACHED',
-  p_plug_comment=> '');
-end;
-/
-declare
-  s varchar2(32767) := null;
-  l_clob clob;
-  l_length number := 1;
-begin
-s := null;
-wwv_flow_api.create_page_plug (
-  p_id=> 2432105729674125 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_page_id=> 18,
-  p_plug_name=> 'Tömb kézzel történő megadása (ha nem ad meg, a rendszer generál)',
-  p_region_name=>'',
-  p_escape_on_http_output=>'N',
-  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 30,
-  p_plug_new_grid         => false,
-  p_plug_new_grid_row     => true,
-  p_plug_new_grid_column  => true,
-  p_plug_display_column=> null,
-  p_plug_display_point=> 'BODY_3',
-  p_plug_item_display_point=> 'ABOVE',
-  p_plug_source=> s,
-  p_plug_source_type=> 'STATIC_TEXT',
-  p_plug_query_row_template=> 1,
-  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
-  p_plug_query_row_count_max => 500,
-  p_plug_display_condition_type => '',
-  p_plug_caching=> 'NOT_CACHED',
-  p_plug_comment=> '');
-end;
-/
-declare
-  s varchar2(32767) := null;
-  l_clob clob;
-  l_length number := 1;
-begin
-s := null;
-wwv_flow_api.create_page_plug (
-  p_id=> 2432302087674125 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_page_id=> 18,
-  p_plug_name=> 'Négyzetre emelés teszt eredménye',
-  p_region_name=>'',
-  p_escape_on_http_output=>'N',
-  p_plug_template=> 2308330636365382+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 40,
-  p_plug_new_grid         => false,
-  p_plug_new_grid_row     => true,
-  p_plug_new_grid_column  => true,
-  p_plug_display_column=> null,
-  p_plug_display_point=> 'BODY_3',
-  p_plug_item_display_point=> 'ABOVE',
-  p_plug_source=> s,
-  p_plug_source_type=> 'STATIC_TEXT',
-  p_plug_query_row_template=> 1,
-  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
-  p_plug_query_row_count_max => 500,
-  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -11687,6 +11621,83 @@ end;
  
 begin
  
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'DECLARE'||unistr('\000a')||
+'  jnum number(1) := 0;'||unistr('\000a')||
+'  rnum number(1) := 0;'||unistr('\000a')||
+'  jobname varchar2(15) := ''CTRLJOB_S1'';'||unistr('\000a')||
+'  credname varchar2(15) := ''SYS.SDBA_CRED'';'||unistr('\000a')||
+'BEGIN'||unistr('\000a')||
+'  SELECT count(*)'||unistr('\000a')||
+'  INTO rnum'||unistr('\000a')||
+'  FROM V$SCHEDULER_RUNNING_JOBS;'||unistr('\000a')||
+''||unistr('\000a')||
+'  if rnum>0 then'||unistr('\000a')||
+'    DBMS_SCHEDULER.stop_job(jobname,true);'||unistr('\000a')||
+'  end if;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  SELECT count(*)'||unistr('\000a')||
+'  INTO jnum'||unistr('\000a')||
+'  FROM DBA_SCHEDULER_JOBS'||unistr('\000a')||
+'  WHERE JOB_NAME = jobname;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  if jnum>0 then'||unistr('\000a')||
+'    DBMS_SCHEDU';
+
+p:=p||'LER.drop_job(jobname);'||unistr('\000a')||
+'  end if;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  --,credential_name => ''SYS.SDBA_CRED'''||unistr('\000a')||
+'  --''c:\windows\system32\cmd.exe /c C:\LJava\control.bat'''||unistr('\000a')||
+'  DBMS_SCHEDULER.create_job (job_name        => jobname,'||unistr('\000a')||
+'                            job_type        => ''EXECUTABLE'','||unistr('\000a')||
+'                            job_action      => ''c:\windows\system32\cmd.exe /c C:\LJava\control.bat'','||unistr('\000a')||
+'                            enabled         =>';
+
+p:=p||' FALSE,'||unistr('\000a')||
+'                            comments        => ''runs controll.bat'''||unistr('\000a')||
+'                            --,NUMBER_OF_ARGUMENTS => 2'||unistr('\000a')||
+'                            );'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  --DBMS_SCHEDULER.set_job_argument_value(jobname,1,''/c'');'||unistr('\000a')||
+'  --DBMS_SCHEDULER.set_job_argument_value(jobname,2,''C:\LJava\control.bat'');'||unistr('\000a')||
+''||unistr('\000a')||
+'  DBMS_SCHEDULER.set_attribute(jobname, ''credential_name'', credname);'||unistr('\000a')||
+'  DBMS_SCHEDULER.set_attribu';
+
+p:=p||'te(jobname, ''destination'', ''marge.localdomain:61850'');'||unistr('\000a')||
+''||unistr('\000a')||
+'  DBMS_SCHEDULER.run_job (jobname, FALSE);'||unistr('\000a')||
+''||unistr('\000a')||
+'END;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 2501026012417364 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 18,
+  p_process_sequence=> 10,
+  p_process_point=> 'BEFORE_HEADER',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'RunOpenCLInfoControlJob',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'ON_ERROR_PAGE',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
 null;
  
 end;
